@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">StankiRF</string>
+    <string name="loginButton">Войти</string>
+    <string name="loginEdit">Введите логин и пароль, чтобы войти</string>
+    <string name="emailText">Email</string>
+    <string name="passwordText">Пароль</string>
+    <string name="passwordTextRepeat">Повторите пароль</string>
+    <string name="registerEditText"><u>Зарегистрироваться</u></string>
+    <string name="registerBtn">Зарегистрироваться</string>
+
+
+    <string name="validLogin">"Некерректный формат почты"</string>
+    <string name="validPassword">"Пароль не может быть короче 6"</string>
+    <string name="validSamePasswords">Пароли должны быть одинаковыми</string>
+    <string name="logout">Выйти</string>
+    <string name="appInfo">О приложении</string>
+
+    <string name="drawer_open">drawer_open</string>
+    <string name="drawer_close">drawer_close</string>
+</resources>

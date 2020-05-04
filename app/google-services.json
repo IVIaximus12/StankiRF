@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "868349946884",
+    "firebase_url": "https://stankirfapp.firebaseio.com",
+    "project_id": "stankirfapp",
+    "storage_bucket": "stankirfapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868349946884:android:0ac6c138dc08cd816c1951",
+        "android_client_info": {
+          "package_name": "com.example.stankirf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "868349946884-coh7u879hrne68mtkcpcjk1ik3l9nf00.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stankirf",
+            "certificate_hash": "e3fbd764edc541e7a8accef0e9d3099fcf5f53bf"
+          }
+        },
+        {
+          "client_id": "868349946884-jq6t82op8qplq9ga40knol8dhed29thk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjoa8uuZSY1S2BbzvRBxQDIoeYKdgRnp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "868349946884-jq6t82op8qplq9ga40knol8dhed29thk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

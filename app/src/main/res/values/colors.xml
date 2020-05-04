@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="button">#8aacc8</color>
+    <color name="buttonPressed">#79A0C1</color>
+    <color name="backgroundColor">#e0e0e0</color>
+    <color name="colorGreenBackForBackText">#bbdefb</color>
+    <color name="black">#2c2c2c</color>
+    <color name="strokeEditText">#bdbdbd</color>
+    <color name="statusBar">#4682B4</color>
+</resources>

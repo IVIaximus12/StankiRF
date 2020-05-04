@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:layout_gravity="center"
+    android:background="@color/backgroundColor"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <EditText
+            style="@style/styles_for_edit_text"
+            android:background="@drawable/draw_style_for_text_view_login_top"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="6dp"
+            android:autofillHints="@string/emailText"
+            android:hint="@string/emailText"
+            android:inputType="textEmailAddress"
+            android:id="@+id/editInputLoginRegister"/>
+
+        <EditText
+            style="@style/styles_for_edit_text"
+            android:background="@drawable/draw_style_for_text_view_login_center"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="3dp"
+            android:autofillHints="@string/passwordText"
+            android:hint="@string/passwordText"
+            android:inputType="textPassword"
+            android:id="@+id/editInputPasswordRegister"/>
+
+        <EditText
+            style="@style/styles_for_edit_text"
+            android:background="@drawable/draw_style_for_text_view_login_bottom"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:autofillHints="@string/passwordTextRepeat"
+            android:hint="@string/passwordTextRepeat"
+            android:inputType="textPassword"
+            android:id="@+id/editInputPasswordRegisterRepeat"/>
+
+        <Button
+            android:background="@drawable/draw_style_button_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/registerBtn"
+            android:id="@+id/buttonRegister"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
