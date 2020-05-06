@@ -17,4 +17,10 @@
 
     <string name="drawer_open">drawer_open</string>
     <string name="drawer_close">drawer_close</string>
+    <string name="search_bar">search</string>
+    <string name="buttonAddFavorite">Добавить в избранное</string>
+    <string name="modelNameText">"Модель: "</string>
+    <string name="producingCountryText">"Страна: "</string>
+    <string name="producerText">"Производитель: "</string>
+    <string name="machineGroupText">"Группа станков: "</string>
 </resources>

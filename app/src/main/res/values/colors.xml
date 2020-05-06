@@ -11,4 +11,5 @@
     <color name="black">#2c2c2c</color>
     <color name="strokeEditText">#bdbdbd</color>
     <color name="statusBar">#4682B4</color>
+    <color name="transparentWhite">#00FFFFFF</color>
 </resources>

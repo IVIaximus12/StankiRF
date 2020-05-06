@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="5dp">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/picZaglushka"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/proba"
+        android:elevation="6dp"
+        app:civ_border_width="4dp"
+        app:civ_border_color="#FF000000"/>
+
+    <TextView
+        android:id="@+id/modelName"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="5dp"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:maxLines="4"
+        android:layout_toStartOf="@id/buttonAddFavorite"
+        android:layout_toEndOf="@+id/picZaglushka"/>
+
+    <ImageButton
+        android:id="@+id/buttonAddFavorite"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="5dp"
+        android:elevation="4dp"
+        android:background="@color/transparentWhite"
+        android:src="@drawable/icons8_star_off" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayoutTop"
+        android:paddingBottom="1dp">
+    <TextView
+        android:id="@+id/producingCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/producer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/producingCountry" />
+
+    <TextView
+        android:id="@+id/machineGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/producer" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:openDrawer="start"
+    tools:openDrawer="end"
     android:background="@color/backgroundColor"
     tools:context=".LoginActivity"
     android:id="@+id/drawerUser">
@@ -20,21 +20,20 @@
             android:id="@+id/toolbarUser"/>
 
         <RelativeLayout
+            android:id="@+id/contentUser"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbarUser"
-            android:id="@+id/contentUser">
+            android:layout_below="@id/toolbarUser">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@color/button"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewUserActivity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </RelativeLayout>
 
     </RelativeLayout>
-    
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
