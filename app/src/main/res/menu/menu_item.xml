@@ -3,6 +3,11 @@
 
     <group android:checkableBehavior="none">
         <item
+            android:id="@+id/favoriteMachines"
+            android:icon="@drawable/ic_star"
+            android:title="@string/favoriteMachines" />
+
+        <item
             android:id="@+id/appInfo"
             android:icon="@drawable/ic_info"
             android:title="@string/appInfo" />

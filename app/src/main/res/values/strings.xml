@@ -14,6 +14,7 @@
     <string name="validSamePasswords">Пароли должны быть одинаковыми</string>
     <string name="logout">Выйти</string>
     <string name="appInfo">О приложении</string>
+    <string name="favoriteMachines">Избранное</string>
 
     <string name="drawer_open">drawer_open</string>
     <string name="drawer_close">drawer_close</string>
@@ -23,4 +24,6 @@
     <string name="producingCountryText">"Страна: "</string>
     <string name="producerText">"Производитель: "</string>
     <string name="machineGroupText">"Группа станков: "</string>
+    <string name="searchItemText">Поиск</string>
+
 </resources>

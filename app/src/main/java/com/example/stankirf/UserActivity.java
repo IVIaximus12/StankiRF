@@ -2,14 +2,15 @@ package com.example.stankirf;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -17,16 +18,15 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.stankirf.model.machine.AdapterRecyclerViewMachines;
+import com.example.stankirf.model.machine.AdapterRecyclerViewMachinesSearch;
 import com.example.stankirf.model.machine.Machine;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
-public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     // private attributes
@@ -37,12 +37,17 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private RecyclerView recyclerViewMachines;
-    private AdapterRecyclerViewMachines adapterRecyclerViewMachines;
+    private AdapterRecyclerViewMachinesSearch adapterRecyclerViewMachines;
+
+    private ArrayList<Machine> listMachines;
+    private ArrayList<String> listId;
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.appInfo:
+                break;
+            case R.id.favoriteMachines:
                 break;
             case R.id.exit:
                 logout();
@@ -62,6 +67,33 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.search_item);
+
+
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setQueryHint(getResources().getText(R.string.searchItemText));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapterRecyclerViewMachines.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterRecyclerViewMachines.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
@@ -74,8 +106,8 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     // private methods
 
     private void initRecyclerViewMachines(){
-        ArrayList<Machine> listMachines = new ArrayList<>();
-        ArrayList<String> listId = new ArrayList<>();
+        listMachines = new ArrayList<>();
+        listId = new ArrayList<>();
 
         recyclerViewMachines = findViewById(R.id.recyclerViewUserActivity);
 
@@ -84,7 +116,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
         initListMachine(listMachines, listId);
 
-        adapterRecyclerViewMachines = new AdapterRecyclerViewMachines(listMachines, listId);
+        adapterRecyclerViewMachines = new AdapterRecyclerViewMachinesSearch(listMachines, listId);
         recyclerViewMachines.setAdapter(adapterRecyclerViewMachines);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewMachines.getContext(),
@@ -128,8 +160,6 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
                 float slideX = drawerView.getWidth() * slideOffset;
                 content.setTranslationX(slideX);
-                content.setScaleX(1 - slideOffset);
-                //content.setScaleY(1 - slideOffset);
             }
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -145,5 +175,4 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
         finish();
     }
-
 }
