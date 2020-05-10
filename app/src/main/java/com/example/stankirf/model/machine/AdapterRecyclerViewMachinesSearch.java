@@ -112,6 +112,13 @@ public class AdapterRecyclerViewMachinesSearch
         };
     }
 
+    public void upDateViews(){
+
+        listMachinesFiltered.clear();
+        listMachinesFiltered.addAll(listMachines);
+        notifyDataSetChanged();
+    }
+
     class NumberViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView circlePicZaglushka;

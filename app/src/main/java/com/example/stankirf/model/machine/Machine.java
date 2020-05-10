@@ -3,11 +3,14 @@ package com.example.stankirf.model.machine;
 public class Machine {
 
     private String id;
-    private String modelName;
-    private String producingCountry;
-    private String producer;
-    private MachineGroup machineGroup;
+    public String modelName;
+    public String producingCountry;
+    public String producer;
+    public String machineGroup;
 
+    public Machine() {
+
+    }
 
     public Machine(String id, String modelName, String producingCountry, String producer, String machineGroup) {
 
@@ -15,15 +18,16 @@ public class Machine {
         this.modelName = modelName;
         this.producingCountry = producingCountry;
         this.producer = producer;
+        this.machineGroup = machineGroup;
 
-        switch (machineGroup) {
+        /*switch (machineGroup) {
             case "Токарный станок":
                 this.machineGroup = MachineGroup.LATHE;
                 break;
             case "Фрезерный станок":
                 this.machineGroup = MachineGroup.MILLINGMACHINE;
                 break;
-        }
+        }*/
 
     }
 
@@ -47,12 +51,17 @@ public class Machine {
 
     public String getMachineGroup() {
 
-        return machineGroup.getMachineGroup();
+        //return machineGroup.getMachineGroup();
+        return machineGroup;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     // enum
 
-    private enum MachineGroup {
+    /*private enum MachineGroup {
         LATHE("Токарный станок"), MILLINGMACHINE("Фрезерный станок");
 
         private String machineGroup;
@@ -64,5 +73,5 @@ public class Machine {
         public String getMachineGroup() {
             return machineGroup;
         }
-    }
+    }*/
 }
