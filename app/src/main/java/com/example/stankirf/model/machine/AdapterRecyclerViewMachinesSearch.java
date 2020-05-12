@@ -4,17 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stankirf.R;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
@@ -29,15 +28,18 @@ public class AdapterRecyclerViewMachinesSearch
     private ArrayList<Machine> listMachines;
     private ArrayList<Machine> listMachinesFiltered;
     private ArrayList<String> listId;
+    private DatabaseReference dbRefUserDate;
 
 
     // public constructor
 
-    public AdapterRecyclerViewMachinesSearch(ArrayList<Machine> listMachines, ArrayList<String> listId){
+    public AdapterRecyclerViewMachinesSearch(ArrayList<Machine> listMachines, ArrayList<String> listId,
+                                             DatabaseReference dbRefUserDate){
 
         this.listMachines = listMachines;
         this.listId = listId;
         this.listMachinesFiltered = new ArrayList<>(listMachines);
+        this.dbRefUserDate = dbRefUserDate;
     }
 
     @NonNull
@@ -140,12 +142,15 @@ public class AdapterRecyclerViewMachinesSearch
 
                     String currentIdMachines = listMachinesFiltered.get(getAdapterPosition()).getId();
 
+
                     if (!listId.contains(currentIdMachines)){
                         buttonAddFavorite.setImageDrawable(v.getResources().getDrawable((R.drawable.icons8_star_on)));
                         listId.add(currentIdMachines);
+                        dbRefUserDate.child(currentIdMachines).setValue(currentIdMachines);
                     } else {
                         buttonAddFavorite.setImageDrawable(v.getResources().getDrawable((R.drawable.icons8_star_off)));
                         listId.remove(currentIdMachines);
+                        dbRefUserDate.child(currentIdMachines).removeValue();
                     }
 
                 }

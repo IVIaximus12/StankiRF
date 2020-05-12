@@ -8,12 +8,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.collection.ArrayMap;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -25,20 +23,15 @@ import com.example.stankirf.model.machine.Machine;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,6 +50,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<String> listId;
 
     private DatabaseReference dbRefMachine;
+    private DatabaseReference dbRefUserDate;
     private FirebaseAuth mAuth;
 
 
@@ -138,7 +132,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewMachines.setLayoutManager(layoutManager);
 
-        adapterRecyclerViewMachines = new AdapterRecyclerViewMachinesSearch(listMachines, listId);
+        adapterRecyclerViewMachines = new AdapterRecyclerViewMachinesSearch(listMachines, listId, dbRefUserDate);
         recyclerViewMachines.setAdapter(adapterRecyclerViewMachines);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewMachines.getContext(),
@@ -148,9 +142,13 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
     private void initDatabase(){
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         dbRefMachine = FirebaseDatabase.getInstance().getReference("machines");
+        dbRefUserDate = FirebaseDatabase.getInstance().getReference("userInfo").child("favorite").child(currentUser.getUid());
     }
 
     private void setFbListener(){
@@ -158,20 +156,45 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                GenericTypeIndicator<HashMap<String, Machine>> generic = new GenericTypeIndicator<HashMap<String, Machine>>() {};
-                HashMap<String, Machine> passportsAndNames = dataSnapshot.getValue(generic);
+                if (dataSnapshot.exists()) {
+                    GenericTypeIndicator<HashMap<String, Machine>> generic = new GenericTypeIndicator<HashMap<String, Machine>>() {
+                    };
+                    HashMap<String, Machine> mapMachines = dataSnapshot.getValue(generic);
 
-                ArrayList<Machine> machines = new ArrayList<>(passportsAndNames.values());
-                Set<String> id = passportsAndNames.keySet();
-                String[] idArray = id.toArray(new String[id.size()]);
+                    ArrayList<Machine> machines = new ArrayList<>(mapMachines.values());
+                    Set<String> id = mapMachines.keySet();
+                    String[] idArray = id.toArray(new String[id.size()]);
 
-                for (int i = 0; i < idArray.length; i++){
-                    machines.get(i).setId(idArray[i]);
+                    for (int i = 0; i < idArray.length; i++) {
+                        machines.get(i).setId(idArray[i]);
+                    }
+
+                    listMachines.clear();
+                    listMachines.addAll(machines);
+                    adapterRecyclerViewMachines.upDateViews();
                 }
+            }
 
-                listMachines.clear();
-                listMachines.addAll(machines);
-                adapterRecyclerViewMachines.upDateViews();
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        dbRefUserDate.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+                    GenericTypeIndicator<HashMap<String, String>> generic = new GenericTypeIndicator<HashMap<String, String>>() {
+                    };
+                    HashMap<String, String> map = dataSnapshot.getValue(generic);
+
+                    ArrayList<String> strings = new ArrayList<>(map.values());
+                    listId.clear();
+                    listId.addAll(strings);
+                    adapterRecyclerViewMachines.upDateViews();
+                }
             }
 
             @Override
