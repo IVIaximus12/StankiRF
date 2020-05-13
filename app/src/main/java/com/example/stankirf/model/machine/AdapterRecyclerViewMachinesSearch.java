@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,6 @@ import com.example.stankirf.R;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterRecyclerViewMachinesSearch
         extends RecyclerView.Adapter<AdapterRecyclerViewMachinesSearch.NumberViewHolder> implements Filterable {
@@ -114,6 +113,8 @@ public class AdapterRecyclerViewMachinesSearch
         };
     }
 
+    // public methods
+
     public void upDateViews(){
 
         listMachinesFiltered.clear();
@@ -121,9 +122,11 @@ public class AdapterRecyclerViewMachinesSearch
         notifyDataSetChanged();
     }
 
+    // inner class of Holder
+
     class NumberViewHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView circlePicZaglushka;
+        ImageView circlePicZaglushka;
         TextView modelName, producingCountry, producer, machineGroup;
         ImageButton buttonAddFavorite;
 

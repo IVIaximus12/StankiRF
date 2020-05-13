@@ -26,7 +26,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
@@ -118,6 +117,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         initMenuView();
     }
 
+
     // private methods
 
     private void initLists(){
@@ -142,13 +142,12 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
     private void initDatabase(){
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        dbRefMachine = FirebaseDatabase.getInstance().getReference("machines");
-        dbRefUserDate = FirebaseDatabase.getInstance().getReference("userInfo").child("favorite").child(currentUser.getUid());
+        dbRefMachine = MyDatabaseUtil.getDatabase().getReference("machines");
+        dbRefUserDate = MyDatabaseUtil.getDatabase().getReference("userInfo").child("favorite").child(currentUser.getUid());
+        dbRefUserDate.keepSynced(true);
     }
 
     private void setFbListener(){
