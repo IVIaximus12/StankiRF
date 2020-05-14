@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,12 +54,21 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseAuth mAuth;
 
 
+    // public methods
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
         switch (menuItem.getItemId()){
-            case R.id.appInfo:
+            case R.id.searchMachines:
+                clearFragmentManager();
+                closeLeftMenu();
                 break;
             case R.id.favoriteMachines:
+                toFavoriteFragment();
+                closeLeftMenu();
+                break;
+            case R.id.appInfo:
                 break;
             case R.id.exit:
                 logout();
@@ -69,9 +79,11 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        drawerLayout = findViewById(R.id.drawerUser);
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+            closeLeftMenu();
+        } else if (!isEmptyFragmentManager()) {
+            clearFragmentManager();
+            navigationView.getMenu().findItem(R.id.searchMachines).setChecked(true);
         } else {
             super.onBackPressed();
         }
@@ -85,7 +97,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
 
         SearchView searchView = (SearchView) item.getActionView();
-        searchView.setQueryHint(getResources().getText(R.string.searchItemText));
+        searchView.setQueryHint(getResources().getText(R.string.search_bar));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -120,12 +132,12 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
     // private methods
 
-    private void initLists(){
+    private void initLists() {
         listMachines = new ArrayList<>();
         listId = new ArrayList<>();
     }
 
-    private void initRecyclerViewMachines(){
+    private void initRecyclerViewMachines() {
 
         recyclerViewMachines = findViewById(R.id.recyclerViewUserActivity);
 
@@ -140,7 +152,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         recyclerViewMachines.addItemDecoration(dividerItemDecoration);
     }
 
-    private void initDatabase(){
+    private void initDatabase() {
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -150,7 +162,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         dbRefUserDate.keepSynced(true);
     }
 
-    private void setFbListener(){
+    private void setFbListener() {
         dbRefMachine.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -203,7 +215,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void initMenuView(){
+    private void initMenuView() {
         drawerLayout = findViewById(R.id.drawerUser);
         toolbar = findViewById(R.id.toolbarUser);
         navigationView = findViewById(R.id.navigationViewUser);
@@ -223,9 +235,32 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
-    private void logout(){
+    private void closeLeftMenu() {
+        drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    private void toFavoriteFragment() {
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContent, new FavoriteFragment())
+                .commit();
+    }
+
+    private void clearFragmentManager() {
+
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        }
+    }
+
+    private boolean isEmptyFragmentManager() {
+        return new ArrayList<>(getSupportFragmentManager().getFragments()).isEmpty();
+    }
+
+    private void logout() {
 
         mAuth.signOut();
         Intent intent = new Intent(UserActivity.this, LoginActivity.class);

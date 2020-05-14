@@ -4,9 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +28,7 @@ public class AdapterRecyclerViewMachinesSearch
     private ArrayList<Machine> listMachinesFiltered;
     private ArrayList<String> listId;
     private DatabaseReference dbRefUserDate;
+    private boolean isFavorite;
 
 
     // public constructor
@@ -39,6 +40,17 @@ public class AdapterRecyclerViewMachinesSearch
         this.listId = listId;
         this.listMachinesFiltered = new ArrayList<>(listMachines);
         this.dbRefUserDate = dbRefUserDate;
+        isFavorite = false;
+    }
+
+    public AdapterRecyclerViewMachinesSearch(ArrayList<Machine> listMachines, ArrayList<String> listId,
+                                             DatabaseReference dbRefUserDate, boolean isFavorite){
+
+        this.listMachines = listMachines;
+        this.listId = listId;
+        this.listMachinesFiltered = new ArrayList<>(listMachines);
+        this.dbRefUserDate = dbRefUserDate;
+        this.isFavorite = true;
     }
 
     @NonNull
@@ -46,7 +58,7 @@ public class AdapterRecyclerViewMachinesSearch
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.recycler_view_user_activity, parent, false);
+                inflate(R.layout.recycler_view_machines, parent, false);
 
         return new NumberViewHolder(view);
     }
@@ -65,10 +77,14 @@ public class AdapterRecyclerViewMachinesSearch
         holder.machineGroup.setText(context.getResources().getString(R.string.machineGroupText).
                 concat(machine.getMachineGroup()));
 
+        if (isFavorite) {
+            holder.buttonAddFavorite.setVisibility(View.GONE);
+            holder.imageAddFavorite.setVisibility(View.GONE);
+        }
         if (listId.contains(machine.getId())){
-            holder.buttonAddFavorite.setImageDrawable(context.getResources().getDrawable((R.drawable.icons8_star_on)));
+            holder.imageAddFavorite.setImageDrawable(context.getResources().getDrawable((R.drawable.icons8_star_on)));
         } else {
-            holder.buttonAddFavorite.setImageDrawable(context.getResources().getDrawable((R.drawable.icons8_star_off)));
+            holder.imageAddFavorite.setImageDrawable(context.getResources().getDrawable((R.drawable.icons8_star_off)));
         }
 
     }
@@ -126,9 +142,9 @@ public class AdapterRecyclerViewMachinesSearch
 
     class NumberViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView circlePicZaglushka;
+        ImageView circlePicZaglushka, imageAddFavorite;
         TextView modelName, producingCountry, producer, machineGroup;
-        ImageButton buttonAddFavorite;
+        Button buttonAddFavorite;
 
 
         public NumberViewHolder(@NonNull View itemView) {
@@ -147,11 +163,11 @@ public class AdapterRecyclerViewMachinesSearch
 
 
                     if (!listId.contains(currentIdMachines)){
-                        buttonAddFavorite.setImageDrawable(v.getResources().getDrawable((R.drawable.icons8_star_on)));
+                        imageAddFavorite.setImageDrawable(v.getResources().getDrawable((R.drawable.icons8_star_on)));
                         listId.add(currentIdMachines);
                         dbRefUserDate.child(currentIdMachines).setValue(currentIdMachines);
                     } else {
-                        buttonAddFavorite.setImageDrawable(v.getResources().getDrawable((R.drawable.icons8_star_off)));
+                        imageAddFavorite.setImageDrawable(v.getResources().getDrawable((R.drawable.icons8_star_off)));
                         listId.remove(currentIdMachines);
                         dbRefUserDate.child(currentIdMachines).removeValue();
                     }
@@ -168,6 +184,7 @@ public class AdapterRecyclerViewMachinesSearch
             producer = itemView.findViewById(R.id.producer);
             machineGroup = itemView.findViewById(R.id.machineGroup);
             buttonAddFavorite = itemView.findViewById(R.id.buttonAddFavorite);
+            imageAddFavorite = itemView.findViewById(R.id.imageAddFavorite);
         }
     }
 }

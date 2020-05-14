@@ -1,5 +1,7 @@
 package com.example.stankirf.model.machine;
 
+import java.io.Serializable;
+
 public class Machine {
 
     private String id;
