@@ -192,7 +192,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        dbRefUserDate.addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRefUserDate.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

@@ -1,7 +1,6 @@
 package com.example.stankirf;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,7 +39,7 @@ public class RegisterDialogFragment extends DialogFragment {
 
         super.onCreateView(inflater, container, savedInstanceState);
 
-        view = inflater.inflate(R.layout.dialog_register, container, false);
+        view = inflater.inflate(R.layout.dialog_fragment_register, container, false);
 
         initViews();
         setListeners();
@@ -106,24 +105,23 @@ public class RegisterDialogFragment extends DialogFragment {
     }
 
     private boolean validateForm() {
-        boolean valid = true;
 
         if (strLogin.isEmpty()) {
             Toast.makeText(getActivity(), R.string.validLogin,
                     Toast.LENGTH_SHORT).show();
-            valid = false;
+            return false;
         }
         if (strPassword.length() < 6) {
             Toast.makeText(getActivity(), R.string.validPassword,
                     Toast.LENGTH_SHORT).show();
-            valid = false;
+            return false;
         }
         if (!strPassword.equals(strPasswordRepeat)) {
             Toast.makeText(getActivity(), R.string.validSamePasswords,
                     Toast.LENGTH_SHORT).show();
-            valid = false;
+            return false;
         }
 
-        return valid;
+        return true;
     }
 }

@@ -72,7 +72,7 @@ public class FavoriteFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerViewMachines.setLayoutManager(layoutManager);
 
-        adapterRecyclerViewMachines = new AdapterRecyclerViewMachinesSearch(listMachines, listId, dbRefUserDate, true);
+        adapterRecyclerViewMachines = new AdapterRecyclerViewMachinesSearch(listMachines, listId, dbRefUserDate, getChildFragmentManager());
         recyclerViewMachines.setAdapter(adapterRecyclerViewMachines);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewMachines.getContext(),
@@ -118,7 +118,8 @@ public class FavoriteFragment extends Fragment {
     private void setFbMachineListener() {
 
         for (String ref : listId) {
-            dbRefMachine.child(ref).addValueEventListener(new ValueEventListener() {
+            final String id = ref;
+            dbRefMachine.child(ref).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -126,7 +127,7 @@ public class FavoriteFragment extends Fragment {
                         GenericTypeIndicator<Machine> generic = new GenericTypeIndicator<Machine>() {
                         };
                         Machine machine = dataSnapshot.getValue(generic);
-
+                        machine.setId(id);
                         int counter = 0;
                         for (int i = 0; i < listMachines.size(); i++) {
 

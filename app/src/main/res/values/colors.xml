@@ -12,4 +12,7 @@
     <color name="strokeEditText">#bdbdbd</color>
     <color name="statusBar">#4682B4</color>
     <color name="transparentWhite">#00FFFFFF</color>
+
+    <color name="buttonRedLight">#f08989</color>
+    <color name="buttonRed">#eb7a7a</color>
 </resources>

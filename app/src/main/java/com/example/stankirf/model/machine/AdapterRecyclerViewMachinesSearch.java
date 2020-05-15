@@ -1,6 +1,7 @@
 package com.example.stankirf.model.machine;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stankirf.R;
@@ -28,7 +30,9 @@ public class AdapterRecyclerViewMachinesSearch
     private ArrayList<Machine> listMachinesFiltered;
     private ArrayList<String> listId;
     private DatabaseReference dbRefUserDate;
+    private AdapterRecyclerViewMachinesSearch adapterRecyclerView;
     private boolean isFavorite;
+    private FragmentManager fragmentManager;
 
 
     // public constructor
@@ -44,13 +48,15 @@ public class AdapterRecyclerViewMachinesSearch
     }
 
     public AdapterRecyclerViewMachinesSearch(ArrayList<Machine> listMachines, ArrayList<String> listId,
-                                             DatabaseReference dbRefUserDate, boolean isFavorite){
+                                             DatabaseReference dbRefUserDate, FragmentManager fragmentManager){
 
         this.listMachines = listMachines;
         this.listId = listId;
         this.listMachinesFiltered = new ArrayList<>(listMachines);
         this.dbRefUserDate = dbRefUserDate;
         this.isFavorite = true;
+        this.fragmentManager = fragmentManager;
+        this.adapterRecyclerView = this;
     }
 
     @NonNull
@@ -59,6 +65,10 @@ public class AdapterRecyclerViewMachinesSearch
 
         View view = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.recycler_view_machines, parent, false);
+        if (isFavorite) {
+            view.setFocusable(true);
+            view.setClickable(true);
+        }
 
         return new NumberViewHolder(view);
     }
@@ -161,7 +171,6 @@ public class AdapterRecyclerViewMachinesSearch
 
                     String currentIdMachines = listMachinesFiltered.get(getAdapterPosition()).getId();
 
-
                     if (!listId.contains(currentIdMachines)){
                         imageAddFavorite.setImageDrawable(v.getResources().getDrawable((R.drawable.icons8_star_on)));
                         listId.add(currentIdMachines);
@@ -174,6 +183,21 @@ public class AdapterRecyclerViewMachinesSearch
 
                 }
             });
+
+            if (isFavorite) {
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+
+                        String currentIdMachines = listMachinesFiltered.get(getAdapterPosition()).getId();
+                        RemoveFavDialogFragment removeFavDialogFragment = new RemoveFavDialogFragment(listId, listMachinesFiltered, currentIdMachines, adapterRecyclerView, dbRefUserDate);
+                        removeFavDialogFragment.show(fragmentManager, "removeDialogFragment");
+
+                        Log.d("long click", "long click");
+                        return true;
+                    }
+                });
+            }
         }
 
         private void initViews(@NonNull View itemView) {
