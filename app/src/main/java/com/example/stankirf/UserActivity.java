@@ -61,10 +61,12 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
         switch (menuItem.getItemId()){
             case R.id.searchMachines:
+                setTitle(R.string.search_bar);
                 clearFragmentManager();
                 closeLeftMenu();
                 break;
             case R.id.favoriteMachines:
+                setTitle(R.string.favoriteMachines);
                 toFavoriteFragment();
                 closeLeftMenu();
                 break;
@@ -82,6 +84,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             closeLeftMenu();
         } else if (!isEmptyFragmentManager()) {
+            setTitle(R.string.search_bar);
             clearFragmentManager();
             navigationView.getMenu().findItem(R.id.searchMachines).setChecked(true);
         } else {
@@ -120,6 +123,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        setTitle(R.string.search_bar);
 
 
         initLists();
