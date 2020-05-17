@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,6 +44,7 @@ public class FavoriteFragment extends Fragment {
 
     private ArrayList<Machine> listMachines;
     private ArrayList<String> listId;
+
 
     // public methods
 
@@ -149,5 +151,9 @@ public class FavoriteFragment extends Fragment {
                 }
             });
         }
+    }
+
+    public AdapterRecyclerViewMachinesSearch getAdapterRecyclerViewMachines() {
+        return adapterRecyclerViewMachines;
     }
 }

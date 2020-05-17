@@ -1,7 +1,5 @@
 package com.example.stankirf.model.machine;
 
-import java.io.Serializable;
-
 public class Machine {
 
     private String id;
@@ -9,6 +7,8 @@ public class Machine {
     public String producingCountry;
     public String producer;
     public String machineGroup;
+    public String urlImage;
+    public String machineType;
 
     public Machine() {
 
@@ -55,6 +55,14 @@ public class Machine {
 
         //return machineGroup.getMachineGroup();
         return machineGroup;
+    }
+
+    public String getMachineType() {
+        return machineType;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
     }
 
     public void setId(String id) {

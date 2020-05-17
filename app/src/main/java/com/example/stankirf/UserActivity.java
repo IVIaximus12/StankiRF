@@ -52,6 +52,8 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference dbRefMachine;
     private DatabaseReference dbRefUserDate;
     private FirebaseAuth mAuth;
+    private SearchView searchView;
+    private FavoriteFragment favoriteFragment;
 
 
     // public methods
@@ -99,19 +101,25 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         MenuItem item = menu.findItem(R.id.search_item);
 
 
-        SearchView searchView = (SearchView) item.getActionView();
+        searchView = (SearchView) item.getActionView();
         searchView.setQueryHint(getResources().getText(R.string.search_bar));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 adapterRecyclerViewMachines.getFilter().filter(query);
+                if (!isEmptyFragmentManager() && (getSupportFragmentManager().findFragmentByTag("FavoriteFragment") != null)) {
+                    favoriteFragment.getAdapterRecyclerViewMachines().getFilter().filter(query);
+                }
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapterRecyclerViewMachines.getFilter().filter(newText);
+                if (!isEmptyFragmentManager() && (getSupportFragmentManager().findFragmentByTag("FavoriteFragment") != null)) {
+                    favoriteFragment.getAdapterRecyclerViewMachines().getFilter().filter(newText);
+                }
                 return false;
             }
         });
@@ -248,8 +256,9 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
     private void toFavoriteFragment() {
 
+        favoriteFragment = new FavoriteFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContent, new FavoriteFragment())
+                .replace(R.id.fragmentContent, favoriteFragment, "FavoriteFragment")
                 .commit();
     }
 

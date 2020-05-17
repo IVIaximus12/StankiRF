@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.stankirf.R;
 import com.google.firebase.database.DatabaseReference;
 
@@ -76,25 +78,39 @@ public class AdapterRecyclerViewMachinesSearch
     @Override
     public void onBindViewHolder(@NonNull NumberViewHolder holder, int position) {
 
-        Context context = holder.itemView.getContext();
+        View view = holder.itemView;
         final Machine machine = listMachinesFiltered.get(position);
-        holder.modelName.setText(context.getResources().getString(R.string.modelNameText).
+        holder.modelName.setText(view.getResources().getString(R.string.modelNameText).
                 concat(machine.getModelName()));
-        holder.producingCountry.setText(context.getResources().getString(R.string.producingCountryText).
+        holder.producingCountry.setText(view.getResources().getString(R.string.producingCountryText).
                 concat(machine.getProducingCountry()));
-        holder.producer.setText(context.getResources().getString(R.string.producerText).
+        holder.producer.setText(view.getResources().getString(R.string.producerText).
                 concat(machine.getProducer()));
-        holder.machineGroup.setText(context.getResources().getString(R.string.machineGroupText).
+        holder.machineGroup.setText(view.getResources().getString(R.string.machineGroupText).
                 concat(machine.getMachineGroup()));
+
+        if (true) {
+            String url = machine.getUrlImage();
+            RequestOptions options = new RequestOptions()
+                    .placeholder(R.drawable.proba);
+            Glide.with(view)
+                    .load(url)
+                    .apply(options)
+                    .into(holder.imageMachine);
+        } else {
+            Glide.with(view).clear(holder.imageMachine);
+            holder.imageMachine.setImageDrawable(view.getResources().getDrawable((R.drawable.proba)));
+        }
+
 
         if (isFavorite) {
             holder.buttonAddFavorite.setVisibility(View.GONE);
             holder.imageAddFavorite.setVisibility(View.GONE);
         }
         if (listId.contains(machine.getId())){
-            holder.imageAddFavorite.setImageDrawable(context.getResources().getDrawable((R.drawable.icons8_star_on)));
+            holder.imageAddFavorite.setImageDrawable(view.getResources().getDrawable((R.drawable.icons8_star_on)));
         } else {
-            holder.imageAddFavorite.setImageDrawable(context.getResources().getDrawable((R.drawable.icons8_star_off)));
+            holder.imageAddFavorite.setImageDrawable(view.getResources().getDrawable((R.drawable.icons8_star_off)));
         }
 
     }
@@ -152,7 +168,7 @@ public class AdapterRecyclerViewMachinesSearch
 
     class NumberViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView circlePicZaglushka, imageAddFavorite;
+        ImageView imageMachine, imageAddFavorite;
         TextView modelName, producingCountry, producer, machineGroup;
         Button buttonAddFavorite;
 
@@ -202,7 +218,7 @@ public class AdapterRecyclerViewMachinesSearch
 
         private void initViews(@NonNull View itemView) {
 
-            circlePicZaglushka = itemView.findViewById(R.id.picZaglushka);
+            imageMachine = itemView.findViewById(R.id.picMachine);
             modelName = itemView.findViewById(R.id.modelName);
             producingCountry = itemView.findViewById(R.id.producingCountry);
             producer = itemView.findViewById(R.id.producer);

@@ -80,15 +80,14 @@
         </RelativeLayout>
 
         <ImageView
-            android:id="@+id/picZaglushka"
+            android:id="@+id/picMachine"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="fitXY"
             android:background="@drawable/image_view_background"
-            android:src="@drawable/proba"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="14dp"
             android:layout_marginBottom="7dp"
-            android:layout_below="@+id/relativeLayoutBottom"/>
+            android:layout_below="@+id/relativeLayoutBottom" />
     </RelativeLayout>
 </RelativeLayout>
