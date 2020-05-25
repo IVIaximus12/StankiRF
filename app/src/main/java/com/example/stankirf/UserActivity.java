@@ -52,7 +52,6 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference dbRefMachine;
     private DatabaseReference dbRefUserDate;
     private FirebaseAuth mAuth;
-    private SearchView searchView;
     private FavoriteFragment favoriteFragment;
 
 
@@ -101,7 +100,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         MenuItem item = menu.findItem(R.id.search_item);
 
 
-        searchView = (SearchView) item.getActionView();
+        SearchView searchView = (SearchView) item.getActionView();
         searchView.setQueryHint(getResources().getText(R.string.search_bar));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -214,9 +213,15 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
                     HashMap<String, String> map = dataSnapshot.getValue(generic);
 
                     ArrayList<String> strings = new ArrayList<>(map.values());
-                    listId.clear();
-                    listId.addAll(strings);
-                    adapterRecyclerViewMachines.upDateViews();
+                    if (listId.size() == strings.size()) {
+
+                    }
+
+                    if (listIdNeedToUpdate(strings, listId)) {
+                        listId.clear();
+                        listId.addAll(strings);
+                        adapterRecyclerViewMachines.upDateViews();
+                    }
                 }
             }
 
@@ -279,5 +284,19 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(UserActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private boolean listIdNeedToUpdate(ArrayList<String> strings, ArrayList<String> listId) {
+
+        if (strings.size() != listId.size())
+            return true;
+
+        int count = 0;
+        for (int i = 0; i < strings.size(); i++) {
+            if (strings.contains(listId.get(i)))
+                count++;
+        }
+
+        return count != strings.size();
     }
 }

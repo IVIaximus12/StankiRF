@@ -1,6 +1,7 @@
 package com.example.stankirf.model.machine;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.stankirf.R;
+import com.example.stankirf.SelectionActivity;
+import com.example.stankirf.UserActivity;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -211,6 +214,14 @@ public class AdapterRecyclerViewMachinesSearch
 
                         Log.d("long click", "long click");
                         return true;
+                    }
+                });
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Context context = itemView.getContext();
+                        Intent intent = new Intent(context, SelectionActivity.class);
+                        context.startActivity(intent);
                     }
                 });
             }

@@ -16,7 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserActivity"
+        <activity
+            android:name=".UserActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".SelectionActivity"
             android:launchMode="singleTask" />
     </application>
 

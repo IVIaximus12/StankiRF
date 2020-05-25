@@ -18,6 +18,9 @@
     <string name="drawer_open">drawer_open</string>
     <string name="drawer_close">drawer_close</string>
     <string name="search_bar">Поиск</string>
+    <string name="back">Назад</string>
+    <string name="characteristics">Характеристики</string>
+    <string name="analogs">Аналоги</string>
     <string name="buttonAddFavorite">Добавить в избранное</string>
     <string name="askDeleteFavorite">Удалить из избранного?</string>
 
