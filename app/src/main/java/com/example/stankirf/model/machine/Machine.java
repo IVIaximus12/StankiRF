@@ -10,9 +10,7 @@ public class Machine {
     public String urlImage;
     public String machineType;
 
-    public Machine() {
-
-    }
+    public Machine() {}
 
     public Machine(String id, String modelName, String producingCountry, String producer, String machineGroup) {
 

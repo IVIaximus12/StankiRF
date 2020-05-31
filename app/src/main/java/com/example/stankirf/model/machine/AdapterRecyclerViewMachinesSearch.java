@@ -207,8 +207,7 @@ public class AdapterRecyclerViewMachinesSearch
                 itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-
-                        String currentIdMachines = listMachinesFiltered.get(getAdapterPosition()).getId();
+                        final String currentIdMachines = listMachinesFiltered.get(getAdapterPosition()).getId();
                         RemoveFavDialogFragment removeFavDialogFragment = new RemoveFavDialogFragment(listId, listMachinesFiltered, currentIdMachines, adapterRecyclerView, dbRefUserDate);
                         removeFavDialogFragment.show(fragmentManager, "removeDialogFragment");
 
@@ -219,8 +218,10 @@ public class AdapterRecyclerViewMachinesSearch
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        final String currentIdMachines = listMachinesFiltered.get(getAdapterPosition()).getId();
                         Context context = itemView.getContext();
                         Intent intent = new Intent(context, SelectionActivity.class);
+                        intent.putExtra("idMachine", currentIdMachines);
                         context.startActivity(intent);
                     }
                 });

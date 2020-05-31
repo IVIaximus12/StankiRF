@@ -28,5 +28,31 @@
     <string name="producingCountryText">"Страна: "</string>
     <string name="producerText">"Производитель: "</string>
     <string name="machineGroupText">"Группа станков: "</string>
+    <string name="machineTypeText">"Тип станков: "</string>
 
+    <string name="shortInformation">Краткая информация</string>
+
+    <!-- Заголовки Токарного ЧПУ станка -->
+    <string name="cncLatheTitle1">Система ЧПУ, конструкция</string>
+    <string name="cncLatheTitle2">Параметры точения, заготовки</string>
+    <string name="cncLatheTitle3">Шпиндель</string>
+    <string name="cncLatheTitle4">Инструмент</string>
+    <string name="cncLatheTitle5">Габариты, вес, энергопотребление</string>
+
+    <!-- Параметры Токарного ЧПУ станка -->
+    <string name="cncSystem">"Система ЧПУ: "</string>
+    <string name="bed">"Станина: "</string>
+    <string name="maximumDiameterRotation">"Максимальный диаметр вращения над станиной, мм: "</string>
+    <string name="maximumTurningDiameter">"Максимальный диаметр точения, мм: "</string>
+    <string name="maximumWorkpieceLength">"Максимальная длина заготовки, мм: "</string>
+    <string name="maximumSpindleSpeed">"Максимальные обороты шпинделя, об/мин: "</string>
+    <string name="spindleMotorPower">"Мощность двигателя шпинделя, кВт: "</string>
+    <string name="counterSpindle">"Противошпиндель: "</string>
+    <string name="tool">"Инструмент: "</string>
+    <string name="toolNumber">"Количество инструмента: "</string>
+    <string name="totalMachinePower">"Суммарная мощность станка, кВт: "</string>
+    <string name="length">"Длина, мм: "</string>
+    <string name="machineWidth">"Ширина, мм: "</string>
+    <string name="height">"Высота, мм: "</string>
+    <string name="weight">"Вес, кг: "</string>
 </resources>

@@ -7,8 +7,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class ViewPagerAdapterSelection extends FragmentStateAdapter {
 
-    public ViewPagerAdapterSelection(@NonNull FragmentActivity fragmentActivity) {
+    private String idMachine;
+
+    public ViewPagerAdapterSelection(@NonNull FragmentActivity fragmentActivity, String idMachine) {
         super(fragmentActivity);
+        this.idMachine = idMachine;
     }
 
     @NonNull
@@ -16,11 +19,11 @@ public class ViewPagerAdapterSelection extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0 :
-                return new Fragment1();
+                return new DetailedFragment(idMachine);
             case 1 :
                 return new FavoriteFragment();
             default:
-                return new FavoriteFragment();
+                return new DetailedFragment(idMachine);
         }
     }
 

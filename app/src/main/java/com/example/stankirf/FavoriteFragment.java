@@ -40,7 +40,6 @@ public class FavoriteFragment extends Fragment {
 
     private DatabaseReference dbRefMachine;
     private DatabaseReference dbRefUserDate;
-    private FirebaseAuth mAuth;
 
     private ArrayList<Machine> listMachines;
     private ArrayList<String> listId;
@@ -84,7 +83,7 @@ public class FavoriteFragment extends Fragment {
 
     private void initDatabase() {
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         dbRefMachine = MyDatabaseUtil.getDatabase().getReference("machines");

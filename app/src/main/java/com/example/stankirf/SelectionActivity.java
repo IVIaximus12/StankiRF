@@ -13,17 +13,24 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class SelectionActivity extends AppCompatActivity {
 
+    String idMachine;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
 
+        getIntentData();
         initToolbar();
         initViewPager();
     }
 
 
     // private methods
+
+    private void getIntentData() {
+        idMachine = getIntent().getStringExtra("idMachine");
+    }
 
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbarSelection);
@@ -43,7 +50,7 @@ public class SelectionActivity extends AppCompatActivity {
 
     private void initViewPager() {
         ViewPager2 viewPager = findViewById(R.id.viewPagerSelection);
-        viewPager.setAdapter(new ViewPagerAdapterSelection(this));
+        viewPager.setAdapter(new ViewPagerAdapterSelection(this, idMachine));
 
         initTabLayout(viewPager);
     }
