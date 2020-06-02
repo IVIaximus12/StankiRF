@@ -12,7 +12,7 @@ public class Machine {
 
     public Machine() {}
 
-    public Machine(String id, String modelName, String producingCountry, String producer, String machineGroup) {
+    public Machine(String id, String modelName, String producingCountry, String producer, String machineGroup, String urlImage) {
 
         this.id = id;
         this.modelName = modelName;

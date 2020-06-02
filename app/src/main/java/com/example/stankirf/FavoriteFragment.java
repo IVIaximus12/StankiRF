@@ -91,7 +91,7 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void setFbUserDateListener() {
-        dbRefUserDate.addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRefUserDate.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -106,6 +106,7 @@ public class FavoriteFragment extends Fragment {
                     listId.clear();
                     listId.addAll(strings);
                     setFbMachineListener();
+                    adapterRecyclerViewMachines.upDateViews();
                 }
             }
 
@@ -120,7 +121,8 @@ public class FavoriteFragment extends Fragment {
 
         for (String ref : listId) {
             final String id = ref;
-            dbRefMachine.child(ref).addListenerForSingleValueEvent(new ValueEventListener() {
+            listMachines.clear();
+            dbRefMachine.child(ref).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

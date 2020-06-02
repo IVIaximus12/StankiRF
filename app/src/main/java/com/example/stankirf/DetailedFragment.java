@@ -1,12 +1,10 @@
 package com.example.stankirf;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.stankirf.model.machine.Machine;
 import com.example.stankirf.model.machine.lathe.CncLathe;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +22,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class DetailedFragment extends Fragment {
+
+
+    // private attributes
 
     private View view;
     private String idMachine;
@@ -39,6 +39,9 @@ public class DetailedFragment extends Fragment {
     private DatabaseReference refMachine;
     private DatabaseReference refMachineDetails;
 
+
+    // public methods
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,9 +52,15 @@ public class DetailedFragment extends Fragment {
         return view;
     }
 
+
+    // public constructors
+
     public DetailedFragment(String idMachine) {
         this.idMachine = idMachine;
     }
+
+
+    // private methods
 
     private void initViews() {
         picMachine = view.findViewById(R.id.picMachine);
@@ -95,7 +104,7 @@ public class DetailedFragment extends Fragment {
                     case "Токарный станок с ЧПУ":
                         DatabaseReference ref = refMachineDetails;
                         Query myQuery = ref.child("lathe").child("cnc_lathe").orderByChild("id").equalTo(idMachine);
-                        myQuery.addValueEventListener(new ValueEventListener() {
+                        myQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 CncLathe cncLathe = new CncLathe();

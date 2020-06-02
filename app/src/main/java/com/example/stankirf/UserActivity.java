@@ -208,14 +208,10 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.exists()) {
-                    GenericTypeIndicator<HashMap<String, String>> generic = new GenericTypeIndicator<HashMap<String, String>>() {
-                    };
+                    GenericTypeIndicator<HashMap<String, String>> generic = new GenericTypeIndicator<HashMap<String, String>>() {};
                     HashMap<String, String> map = dataSnapshot.getValue(generic);
 
                     ArrayList<String> strings = new ArrayList<>(map.values());
-                    if (listId.size() == strings.size()) {
-
-                    }
 
                     if (listIdNeedToUpdate(strings, listId)) {
                         listId.clear();
